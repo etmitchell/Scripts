@@ -8,6 +8,8 @@ import json
 from slackclient import SlackClient
 import time
 from collections import defaultdict
+import ConfigParser
+import os
 
 BOSTON = (42.3601, 71.0589)
 # 1 degree of latiude at 45N/S is ~78.71 km.
@@ -32,7 +34,9 @@ def get_coords():
         return None
 
 def slack(lat=None,lng=None):
-    token = "get your own"
+    config = ConfigParser.RawConfigParser()
+    config.read('settings.cfg')
+    token = config._sections['bot_keys']['spacebot']
     sc = SlackClient(token)
     # Currently printing for debugging
     print sc.api_call("api.test")
