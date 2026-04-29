@@ -73,6 +73,18 @@ apply defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 $DRY_RUN || echo "  Updated → false (natural scrolling off) (0)"
 echo ""
 
+# ─── Tapping ──────────────────────────────────────────────────────────────────
+echo "[ Tap to click — Enabled ]"
+echo "  Current Apple Multitouch : $(current Clicking com.apple.AppleMultitouchTrackpad)"
+echo "  Current Apple Bluetooth Multitouch : $(current Clicking com.apple.driver.AppleBluetoothMultitouch.trackpad)"
+apply defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+apply defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# Restart trackpad service to apply
+echo "  Restarting trackpad service..."
+apply defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+$DRY_RUN || echo "  Updated → true (tap to click on) (true)"
+echo ""
+
 # ─── Clock ────────────────────────────────────────────────────────────────────
 echo "[ Clock — Show Seconds ]"
 echo "  Current ShowSeconds : $(current com.apple.menuextra.clock ShowSeconds)"
